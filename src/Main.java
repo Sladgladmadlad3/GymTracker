@@ -10,6 +10,7 @@ public class Main {
 
         try (Connection connection = DriverManager.getConnection(url, user, password)) {
             System.out.println("Connected to the database!");
+            Gui.launch(Gui.class, args);
 
             String sql = "SELECT * FROM exercises";
 
