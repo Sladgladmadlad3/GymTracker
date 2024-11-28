@@ -5,6 +5,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javax.swing.JTable;
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 public class Gui extends Application {
     Button button;
@@ -20,6 +24,37 @@ public class Gui extends Application {
         Scene scene = new Scene(root, 300, 250);
         primaryStage.setScene(scene);
         primaryStage.show();
+
+
+
     }
 
+}
+
+class JTableExample {
+    JFrame frame;
+
+    JTable workoutTable;
+
+    JTableExample() {
+        frame = new JFrame();
+
+        frame.setTitle("Gym Tracker");
+
+        String[][] data = {
+                {"Kamla Harris", "2023", "Data"},
+                {"Donald Trump", "1999", "Data-Data"}
+        };
+
+        String[] columnNames = {"Name", "Year", "Words"};
+
+        workoutTable = new JTable(data, columnNames);
+        workoutTable.setBounds(30,40,200,300);
+
+        JScrollPane scrollPane = new JScrollPane(workoutTable);
+        frame.add(scrollPane);
+
+        frame.setSize(500,200);
+        frame.setVisible(true);
+    }
 }
