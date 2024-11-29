@@ -9,29 +9,35 @@ import javax.swing.JTable;
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableModel;
+import java.util.ArrayList;
 
 public class Gui extends Application {
-    Button button;
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Gym Tracker");
-        button = new Button();
-        button.setText("Click Me");
 
-        StackPane root = new StackPane();
-        root.getChildren().add(button);
-
-        Scene scene = new Scene(root, 300, 250);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-
+        new JTableExample();
 
     }
 
 }
 
-class JTableExample {
+//custom class
+class Exercise {
+    private String exerciseName;
+    private int sets;
+    private String reps;
+
+    //constructor
+    public Exercise(String exerciseName, int sets, String reps) {
+        this.exerciseName = exerciseName;
+        this.sets = sets;
+        this.reps = reps;
+    }
+}
+
+
+class JTableExample extends JTable{
     JFrame frame;
 
     JTable workoutTable;
@@ -42,13 +48,30 @@ class JTableExample {
         frame.setTitle("Gym Tracker");
 
         String[][] data = {
-                {"Kamla Harris", "2023", "Data"},
-                {"Donald Trump", "1999", "Data-Data"}
+                {"Test", "Test", "Test", "Test"},
+                {"Test", "Test", "Data-Data", "Data-Data"},
         };
 
-        String[] columnNames = {"Name", "Year", "Words"};
+        String[] columnNames = {"Exercise", "Sets", "Reps"};
 
-        workoutTable = new JTable(data, columnNames);
+        ArrayList<Exercise> dataList = new ArrayList<Exercise>();
+
+        Exercise rowOne = new Exercise("Bench Press", 4, "4-8");
+        Exercise rowTwo = new Exercise("Bent Over Row", 3, "4-8");
+        Exercise rowThree = new Exercise("Seated OHP", 4, "6-10");
+        Exercise rowFour = new Exercise("Pull Ups or Chin Ups", 4, "6-10");
+        Exercise rowFive = new Exercise("Barbell Curl x Chest Dips", 3, "10");
+        Exercise rowSix = new Exercise("Hanging Leg Raise or Lying Leg Raises", 3, "6-12");
+
+        dataList.add(rowOne);
+        dataList.add(rowTwo);
+        dataList.add(rowThree);
+        dataList.add(rowFour);
+        dataList.add(rowFive);
+        dataList.add(rowSix);
+
+        ExerciseTableModel model = new Exer
+        workoutTable = new JTable(dataList, columnNames);
         workoutTable.setBounds(30,40,200,300);
 
         JScrollPane scrollPane = new JScrollPane(workoutTable);
@@ -56,5 +79,13 @@ class JTableExample {
 
         frame.setSize(500,200);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        int row = workoutTable.convertRowIndexToModel(rowIndex);
+        if (0 == columnIndex) {
+            row.setId((Integer) aValue);
+        }
     }
 }
